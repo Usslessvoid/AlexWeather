@@ -32,7 +32,7 @@ public class LocationChooseFragment extends Fragment {
 
     @BindView(R.id.location_list)
     ListView locationsList;
-    @BindView(R.id.no_items)
+    @BindView(R.id.no_any_elements)
     View v;
 
     @Nullable

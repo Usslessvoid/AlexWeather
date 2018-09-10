@@ -3,6 +3,7 @@
     package="com.example.drcreeper.alexweather">
 
     <application
+        android:name=".utils.Utills"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.widget.LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,40 +7,33 @@
     android:layout_gravity="center">
 
     <LinearLayout
-        android:id="@+id/no_items"
+        android:id="@+id/no_any_elements"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         android:gravity="center"
         android:orientation="vertical"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/location_list"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:visibility="gone">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:gravity="center"
-            android:orientation="vertical">
+            android:text="@string/no_items_text"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textSize="24sp" />
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|center_horizontal"
-                android:gravity="bottom|center"
-                android:text="@string/no_items_text"
-                android:textAppearance="@style/TextAppearance.AppCompat"
-                android:textSize="24sp" />
-
-            <Button
-                android:id="@+id/create_location_button"
-                style="@android:style/Widget.Holo.Light.Button.Inset"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/add_button" />
-        </LinearLayout>
+        <Button
+            android:id="@+id/create_location_button"
+            style="@android:style/Widget.Holo.Light.Button.Inset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:hapticFeedbackEnabled="false"
+            android:text="@string/add_button" />
     </LinearLayout>
 
     <ListView
@@ -50,4 +43,4 @@
 
     </ListView>
 
-</android.support.constraint.ConstraintLayout>
+</android.widget.LinearLayout>
