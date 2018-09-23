@@ -1,15 +1,36 @@
 package com.example.drcreeper.alexweather.models;
 
-import java.util.Date;
-public class LocationItem {
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 
+import com.example.drcreeper.alexweather.models.generated.WeatherAnswer;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+@Entity
+public class LocationItem {
+    @PrimaryKey(autoGenerate = true)
     private int id;
     private String name;
     private int temperature;
     private String state;
-    private Date lastUpdate;
+    private long lastUpdate;
     private int townId;
 
+    public LocationItem() {
+        name = "Unknown";
+        temperature = 0;
+        state = "Unknown";
+        lastUpdate = 0;
+    }
+
+    public LocationItem(WeatherAnswer source){
+        townId =source.getId();
+        name = source.getName();
+        temperature = source.getMain().getTemp().intValue();
+        state = source.getWeather().get(0).getDescription();
+        lastUpdate = new Date().getTime();
+    }
     public int getId() {
         return id;
     }
@@ -42,11 +63,11 @@ public class LocationItem {
         this.state = state;
     }
 
-    public Date getLastUpdate() {
+    public long getLastUpdate() {
         return lastUpdate;
     }
 
-    public void setLastUpdate(Date lastUpdate) {
+    public void setLastUpdate(long lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 
@@ -56,5 +77,10 @@ public class LocationItem {
 
     public void setTownId(int townId) {
         this.townId = townId;
+    }
+    public String getDate(){
+        Date lastUpdate = new Date(this.lastUpdate);
+        SimpleDateFormat date = new SimpleDateFormat("dd.MM.YYYY HH:mm");
+        return date.format(lastUpdate);
     }
 }

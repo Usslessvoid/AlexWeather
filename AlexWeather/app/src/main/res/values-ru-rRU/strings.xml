@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Погода</string>
+    <string name="add_button">Добавить</string>
+    <string name="no_items_text">Нет сохранённых мест.</string>
+    <string name="add_location_activity_tittle">Выберите, как добавить новое место</string>
+    <string name="add_locatiion_choose_tittle">Возможные сппособы:</string>
+    <string name="add_location_select">Продолжить</string>
+    <string name="add_location_name">По имени</string>
+    <string name="add_location_position">По моему местоположению</string>
+    <string name="add_location_coord">По координатам</string>
+</resources>

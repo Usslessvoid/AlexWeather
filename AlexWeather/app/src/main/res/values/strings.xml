@@ -3,4 +3,9 @@
     <string name="add_button">Add</string>
     <string name="no_items_text">No saved locations</string>
     <string name="add_location_activity_tittle">How add location</string>
+    <string name="add_locatiion_choose_tittle">Choose method:</string>
+    <string name="add_location_select">Choose</string>
+    <string name="add_location_name">By city name</string>
+    <string name="add_location_position">By my position</string>
+    <string name="add_location_coord">By coordinates</string>
 </resources>
