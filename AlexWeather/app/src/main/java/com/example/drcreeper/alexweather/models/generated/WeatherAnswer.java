@@ -1,9 +1,11 @@
 
 package com.example.drcreeper.alexweather.models.generated;
 
-import java.util.List;
+import com.example.drcreeper.alexweather.models.WeatherData;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public class WeatherAnswer {
 
@@ -128,5 +130,19 @@ public class WeatherAnswer {
     public void setCod(Integer cod) {
         this.cod = cod;
     }
-
+    public WeatherData getWeatherData(int locationId){
+        WeatherData data = new WeatherData();
+        data.setTime(1000l * dt);
+        data.setLocationId(locationId);
+        data.setTemperature(main.getTemp());
+        data.setMinTemperature(main.getTempMin());
+        data.setMaxTemperature(main.getTempMax());
+        data.setState(weather.get(0).getDescription());
+        data.setPicture(weather.get(0).getIcon());
+        data.setWindAngle(wind.getDeg());
+        data.setWindSpeed(wind.getSpeed());
+        data.setHumidity(main.getHumidity());
+        data.setPressure(main.getPressure());
+        return data;
+    }
 }

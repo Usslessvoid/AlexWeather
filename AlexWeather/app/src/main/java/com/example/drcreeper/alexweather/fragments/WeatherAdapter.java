@@ -41,7 +41,7 @@ public class WeatherAdapter extends ArrayAdapter<LocationItem> {
         }
         LocationItem item = getItem(position);
         holder.location.setText(item.getName());
-        holder.temperature.setText(Integer.toString(item.getTemperature()));
+        holder.temperature.setText(Integer.toString((int) Math.round(item.getTemperature())));
         holder.state.setText(item.getState());
         holder.lastUpdate.setText(item.getDate());
         return convertView;

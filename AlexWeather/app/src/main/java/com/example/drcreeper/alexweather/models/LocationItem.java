@@ -12,7 +12,7 @@ public class LocationItem {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String name;
-    private int temperature;
+    private double temperature;
     private String state;
     private long lastUpdate;
     private int townId;
@@ -27,7 +27,7 @@ public class LocationItem {
     public LocationItem(WeatherAnswer source){
         townId =source.getId();
         name = source.getName();
-        temperature = source.getMain().getTemp().intValue();
+        temperature = source.getMain().getTemp();
         state = source.getWeather().get(0).getDescription();
         lastUpdate = new Date().getTime();
     }
@@ -47,11 +47,11 @@ public class LocationItem {
         this.name = name;
     }
 
-    public int getTemperature() {
+    public double getTemperature() {
         return temperature;
     }
 
-    public void setTemperature(int temperature) {
+    public void setTemperature(double temperature) {
         this.temperature = temperature;
     }
 

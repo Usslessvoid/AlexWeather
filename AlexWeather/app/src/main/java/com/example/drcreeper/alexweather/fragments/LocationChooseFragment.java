@@ -12,15 +12,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.drcreeper.alexweather.R;
 import com.example.drcreeper.alexweather.activities.AddLocationActivity;
 import com.example.drcreeper.alexweather.models.LocationItem;
-import com.example.drcreeper.alexweather.models.generated.WeatherAnswer;
 import com.example.drcreeper.alexweather.utils.ReadLocationsAsyncTask;
-import com.example.drcreeper.alexweather.utils.Utils;
-import com.example.drcreeper.alexweather.utils.WriteLocationAsyncTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +24,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 // api key: 5753974d4f4e8e428ba77f4eb8816501
 
@@ -61,7 +55,7 @@ public class LocationChooseFragment extends Fragment {
         });
         readTask.execute();
 
-        Utils.getWeatherServise().getData(Utils.APPID, Utils.LOCALE,Utils.UNITS,625144).enqueue(new Callback<WeatherAnswer>() {
+        /*Utils.getWeatherServise().getData(Utils.APPID, Utils.LOCALE,Utils.UNITS,625144).enqueue(new Callback<WeatherAnswer>() {
             @Override
             public void onResponse(retrofit2.Call<WeatherAnswer> call, Response<WeatherAnswer> response) {
                 if(response!= null){
@@ -80,8 +74,8 @@ public class LocationChooseFragment extends Fragment {
             public void onFailure(retrofit2.Call<WeatherAnswer> call, Throwable t) {
                 Toast.makeText(getContext(),"Error",Toast.LENGTH_LONG).show();
             }
-        });
-/**/
+        });*/
+
         adapter = new WeatherAdapter(getContext(),R.layout.location_item,list);
         locationsList.setEmptyView(v);
         locationsList.setAdapter(adapter);

@@ -1,5 +1,6 @@
 package com.example.drcreeper.alexweather.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,6 +13,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.drcreeper.alexweather.R;
+import com.example.drcreeper.alexweather.activities.WeatherActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,6 +50,8 @@ public class AddLocationFragment extends Fragment {
 
                 break;
             case R.id.radio_coord:
+                Intent intent = new Intent(getContext(),WeatherActivity.class);
+                getActivity().startActivity(intent);
                 break;
                 default:
                     Toast.makeText(getContext(),"Noo!!!",Toast.LENGTH_LONG).show();

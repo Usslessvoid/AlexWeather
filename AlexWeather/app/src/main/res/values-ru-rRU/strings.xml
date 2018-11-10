@@ -9,4 +9,13 @@
     <string name="add_location_name">По имени</string>
     <string name="add_location_position">По моему местоположению</string>
     <string name="add_location_coord">По координатам</string>
+    <string name="unit_temp">°C</string>
+    <string name="temp_min">"мин: "</string>
+    <string name="temp_max">"макс: "</string>
+    <string name="unit_wind">м/с</string>
+    <string name="wind">"ветер: "</string>
+    <string name="humidity">"влажность: "</string>
+    <string name="pressure">"давление: "</string>
+    <string name="unit_humidity">%</string>
+    <string name="unit_pressure">мм</string>
 </resources>

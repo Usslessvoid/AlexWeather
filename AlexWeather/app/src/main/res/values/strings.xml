@@ -8,4 +8,24 @@
     <string name="add_location_name">By city name</string>
     <string name="add_location_position">By my position</string>
     <string name="add_location_coord">By coordinates</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="unit_temp">°C</string>
+    <string name="temp_min">"min: "</string>
+    <string name="temp_max">max:</string>
+    <string name="unit_wind">m/s</string>
+    <string name="wind">"Wind: "</string>
+    <string name="humidity">"humidity: "</string>
+    <string name="pressure">"pressure: "</string>
+    <string name="unit_humidity">%</string>
+    <string name="unit_pressure">mm</string>
+    <string-array name="week_days">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+    </string-array>
 </resources>

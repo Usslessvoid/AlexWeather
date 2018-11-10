@@ -18,6 +18,10 @@ public class Sys {
     @SerializedName("sunset")
     @Expose
     private Integer sunset;
+    @SerializedName("pod")
+    @Expose
+    private String pod;
+
 
     public Double getMessage() {
         return message;
@@ -50,5 +54,11 @@ public class Sys {
     public void setSunset(Integer sunset) {
         this.sunset = sunset;
     }
+    public String getPod() {
+        return pod;
+    }
 
+    public void setPod(String pod) {
+        this.pod = pod;
+    }
 }
