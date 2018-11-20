@@ -1,6 +1,7 @@
 package com.example.drcreeper.alexweather.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.drcreeper.alexweather.R;
+import com.example.drcreeper.alexweather.activities.WeatherActivity;
 import com.example.drcreeper.alexweather.models.LocationItem;
 
 import java.util.List;
@@ -39,11 +41,20 @@ public class WeatherAdapter extends ArrayAdapter<LocationItem> {
         }else {
             holder = (LocationHolder)convertView.getTag();
         }
-        LocationItem item = getItem(position);
+        final LocationItem item = getItem(position);
         holder.location.setText(item.getName());
         holder.temperature.setText(Integer.toString((int) Math.round(item.getTemperature())));
         holder.state.setText(item.getState());
         holder.lastUpdate.setText(item.getDate());
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), WeatherActivity.class);
+                intent.putExtra("id",item.getTownId());
+                intent.putExtra("name",item.getName());
+                getContext().startActivity(intent);
+            }
+        });
         return convertView;
     }
 }

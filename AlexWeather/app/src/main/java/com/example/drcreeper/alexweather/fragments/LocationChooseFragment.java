@@ -84,6 +84,12 @@ public class LocationChooseFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        locationsList.deferNotifyDataSetChanged();
+    }
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.main_menu,menu);
     }

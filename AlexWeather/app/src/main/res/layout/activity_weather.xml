@@ -14,10 +14,12 @@
         android:layout_height="wrap_content" />
 
     <fragment
-        android:id="@+id/fragment4"
+        android:id="@+id/list_weather"
         android:name="com.example.drcreeper.alexweather.fragments.WeekListFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/hat_fragment"
         tools:layout_editor_absoluteX="16dp" />
 </android.support.constraint.ConstraintLayout>

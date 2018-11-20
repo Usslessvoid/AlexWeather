@@ -10,10 +10,12 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.drcreeper.alexweather.R;
+import com.example.drcreeper.alexweather.activities.WeatherActivity;
 import com.example.drcreeper.alexweather.models.WeatherData;
 import com.example.drcreeper.alexweather.models.generated.WeatherList;
 import com.example.drcreeper.alexweather.utils.Utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -36,25 +38,48 @@ public class WeekListFragment extends Fragment {
                 Toast.makeText(getContext(),lol,Toast.LENGTH_LONG).show();*/
     private RecyclerView recyclerView;
     private List<WeatherData> list;
+    private WeatherData currentWeather;
+    private int townId;
+
+
+    public void setCurrentWeather(WeatherData currentWeather) {
+        this.currentWeather = currentWeather;
+        if(list == null){
+            list = new ArrayList<>();
+            list.add(0,currentWeather);
+        }else {
+            list.add(0,currentWeather);
+            recyclerView.getAdapter().notifyDataSetChanged();
+            updateWeather(townId);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_item_list, container, false);
+        townId = getActivity().getIntent().getIntExtra("id",625144);
         recyclerView = (RecyclerView)view.findViewById(R.id.list);
-        Utils.getWeatherServise().getWeatherList(Utils.APPID,Utils.LOCALE,Utils.UNITS,625144).enqueue(new Callback<WeatherList>() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
+        recyclerView.setAdapter(new WeekListRecyclerViewAdapter(new ArrayList<WeatherData>(), (WeatherActivity) getActivity()));
+        Utils.getWeatherServise().getWeatherList(Utils.APPID,Utils.LOCALE,Utils.UNITS,townId).enqueue(new Callback<WeatherList>() {
             @Override
             public void onResponse(Call<WeatherList> call, Response<WeatherList> response) {
-                list = response.body().getWeatherDataList(84);
-                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
-                recyclerView.setAdapter(new WeekListRecyclerViewAdapter(list));
-
-
+                if(response.body()!=null) {
+                    if (list == null) {
+                        list = new ArrayList<>();
+                    }
+                    list.addAll(response.body().getWeatherDataList(townId));//84
+                    recyclerView.setAdapter(new WeekListRecyclerViewAdapter(list, (WeatherActivity) getActivity()));
+                    if(currentWeather != null){
+                        updateWeather(townId);
+                    }
+                }
             }
 
             @Override
             public void onFailure(Call<WeatherList> call, Throwable t) {
-                Toast.makeText(getContext(),"ggwp"+t,Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "ggwp" + t, Toast.LENGTH_LONG).show();
             }
         });
         /* Set the adapter
@@ -78,5 +103,8 @@ public class WeekListFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
     }
-
+    public void updateWeather(int id){
+        Utils.clearLocation(id);
+        Utils.writeAllWeather(list);
+    }
 }

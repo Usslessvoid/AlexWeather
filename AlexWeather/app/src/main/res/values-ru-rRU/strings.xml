@@ -18,4 +18,10 @@
     <string name="pressure">"давление: "</string>
     <string name="unit_humidity">%</string>
     <string name="unit_pressure">мм</string>
+    <string name="now">Сейчас</string>
+    <string name="search_hint">Введите название города</string>
+    <string name="no_town">Город не найден!</string>
+    <string name="no_internet">Проблема с подключением!</string>
+    <string name="lat">Широта</string>
+    <string name="lon">Долгота</string>
 </resources>

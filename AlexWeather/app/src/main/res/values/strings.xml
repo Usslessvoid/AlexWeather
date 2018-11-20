@@ -28,4 +28,14 @@
         <item>Saturday</item>
         <item>Sunday</item>
     </string-array>
+    <string name="now">Now</string>
+    <string name="search_hint">Enter city name</string>
+    <string name="no_town">No such town</string>
+    <string name="no_internet">Connection problem!</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="lat">Latitude</string>
+    <string name="lon">Longitude</string>
+
 </resources>

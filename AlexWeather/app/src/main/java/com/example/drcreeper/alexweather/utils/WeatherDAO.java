@@ -16,4 +16,8 @@ public interface WeatherDAO {
     void putWeather(WeatherData data);
     @Insert
     void putAll(List<WeatherData> list);
+    @Query("DELETE FROM weatherdata WHERE time<:nowTime")
+    void clear(long nowTime);
+    @Query("DELETE FROM weatherdata WHERE locationId = :id")
+    void clearLocation(int id);
 }
