@@ -3,6 +3,7 @@ package com.example.drcreeper.alexweather.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +20,13 @@ import com.example.drcreeper.alexweather.models.generated.City;
 import com.example.drcreeper.alexweather.models.generated.WeatherAnswer;
 import com.example.drcreeper.alexweather.utils.Utils;
 import com.example.drcreeper.alexweather.utils.WriteLocationAsyncTask;
-import com.google.gson.Gson;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,16 +42,17 @@ public class AddByNameFragment extends Fragment {
     @BindView(R.id.progress)
     ProgressBar bar;
     Cities cities;
+    Thread readTask;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_by_name, container, false);
         ButterKnife.bind(this,view);
-        new Thread(new Runnable() {
+        readTask = new Thread(new Runnable() {
             @Override
             public void run() {
-
+/*
                 try {
                     InputStreamReader stream = new InputStreamReader(getActivity().getAssets().open("citylist.json"));
                     Gson gson = new Gson();
@@ -56,23 +60,54 @@ public class AddByNameFragment extends Fragment {
 
                 } catch (IOException |ArrayIndexOutOfBoundsException e) {
                     e.printStackTrace();
-                }
-                final List<String> list = cities.getNames();
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        findView.setAdapter(new ArrayAdapter<String>(getContext(),android.R.layout.simple_dropdown_item_1line,list));
+ }*/
+                File listFile = null;
+                File input = null;
+                File cacheDir = getContext().getCacheDir();
+                try {
+                    input = new File(cacheDir, Utils.DUMP_FILE_NAME);
+                    while (!input.exists()) {
+                        TimeUnit.SECONDS.sleep(2);
+                        input = new File(cacheDir, Utils.DUMP_FILE_NAME);
                     }
-                });
-            }
-        }).start();
+                    listFile = new File(cacheDir, Utils.LIST_FILE_NAE);
+                    while (!listFile.exists()) {
+                        listFile = new File(cacheDir, Utils.LIST_FILE_NAE);
+                        TimeUnit.SECONDS.sleep(2);
+                    }
+                    ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(listFile));
+                    final List<String> list = (List<String>)inputStream.readObject();
+                    if(getActivity()!=null) {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                findView.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_dropdown_item_1line, list));
+                            }
+                        });
+                    }
+                    inputStream = new ObjectInputStream(new FileInputStream(input));
+                    cities = (Cities)inputStream.readObject();
+                }catch (InterruptedException|IOException|ClassNotFoundException e){
+                    Log.e("lol",e.toString());
+                }
 
+
+
+            }
+        });
+        readTask.start();
         return view;
     }
+
+
     @OnClick(R.id.go)
     void onFindPress(){
-        bar.setVisibility(View.VISIBLE);
         int townId = -1;
+        if(cities == null){
+            Toast.makeText(getContext(),R.string.wait,Toast.LENGTH_LONG).show();
+            return;
+        }
+        bar.setVisibility(View.VISIBLE);
         String text = findView.getText().toString();
         for(City city: cities.getList()){
             if(text.equals(city.getName())){

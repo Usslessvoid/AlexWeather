@@ -3,10 +3,11 @@ package com.example.drcreeper.alexweather.models.generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Cities {
+public class Cities implements Serializable{
     @Expose
     @SerializedName("list")
     private List<City> list = new LinkedList<>();

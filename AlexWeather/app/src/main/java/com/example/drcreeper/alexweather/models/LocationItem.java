@@ -28,7 +28,7 @@ public class LocationItem {
         townId =source.getId();
         name = source.getName();
         temperature = source.getMain().getTemp();
-        state = source.getWeather().get(0).getDescription();
+        state = source.getWeather().get(0).getIcon();
         lastUpdate = new Date().getTime();
     }
     public int getId() {
@@ -80,7 +80,7 @@ public class LocationItem {
     }
     public String getDate(){
         Date lastUpdate = new Date(this.lastUpdate);
-        SimpleDateFormat date = new SimpleDateFormat("dd.MM.YYYY HH:mm");
+        SimpleDateFormat date = new SimpleDateFormat("dd.MM.yyyy HH:mm");
         return date.format(lastUpdate);
     }
 }

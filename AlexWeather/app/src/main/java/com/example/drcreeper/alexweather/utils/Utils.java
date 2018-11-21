@@ -5,14 +5,16 @@ import android.arch.persistence.room.Room;
 
 import com.example.drcreeper.alexweather.models.WeatherData;
 
-
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Utils extends Application {
-
+    public static final String JSON_FILE_NAME = "citylist.json";
+    public static final String DUMP_FILE_NAME = "cties.dat";
+    public static final String LIST_FILE_NAE = "list.dat";
     public static final long MIN_UPDATE_INTERVAL = 60000;
     public static final int GET_COORD = 228;
     public static final String BASE_URL = "http://api.openweathermap.org";
@@ -79,5 +81,14 @@ public class Utils extends Application {
             }
         };
         new Thread(task).start();
+    }
+    public static String normalizeNumber(double num){
+        String pattern;// TODO: 20.11.2018
+        if(num % 1 == 0){
+            pattern = "%2.0f";
+        }else {
+            pattern = "%2.1f";
+        }
+        return String.format(Locale.ENGLISH,pattern,num);
     }
 }

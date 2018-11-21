@@ -8,11 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.drcreeper.alexweather.R;
 import com.example.drcreeper.alexweather.activities.WeatherActivity;
 import com.example.drcreeper.alexweather.models.LocationItem;
+import com.example.drcreeper.alexweather.utils.PicturePicker;
 
 import java.util.List;
 
@@ -35,7 +37,7 @@ public class WeatherAdapter extends ArrayAdapter<LocationItem> {
             holder = new LocationHolder();
             holder.location = (TextView) convertView.findViewById(R.id.location_name);
             holder.temperature = (TextView)convertView.findViewById(R.id.temperature);
-            holder.state = (TextView)convertView.findViewById(R.id.state);
+            holder.state = (ImageView) convertView.findViewById(R.id.image);
             holder.lastUpdate = (TextView) convertView.findViewById(R.id.last_update);
             convertView.setTag(holder);
         }else {
@@ -44,7 +46,7 @@ public class WeatherAdapter extends ArrayAdapter<LocationItem> {
         final LocationItem item = getItem(position);
         holder.location.setText(item.getName());
         holder.temperature.setText(Integer.toString((int) Math.round(item.getTemperature())));
-        holder.state.setText(item.getState());
+        holder.state.setImageResource(PicturePicker.getPicture(item.getState()));
         holder.lastUpdate.setText(item.getDate());
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override

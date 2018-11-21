@@ -24,4 +24,14 @@
     <string name="no_internet">Проблема с подключением!</string>
     <string name="lat">Широта</string>
     <string name="lon">Долгота</string>
+    <string-array name="week_days">
+        <item>Понедельник</item>
+        <item>Вторник</item>
+        <item>Среда</item>
+        <item>Четверг</item>
+        <item>Пятница</item>
+        <item>Суббота</item>
+        <item>Воскресенье</item>
+    </string-array>
+    <string name="wait">Подождите...</string>
 </resources>

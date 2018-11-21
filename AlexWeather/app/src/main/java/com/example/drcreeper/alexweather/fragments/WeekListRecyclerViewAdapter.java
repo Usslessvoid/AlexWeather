@@ -14,11 +14,12 @@ import com.example.drcreeper.alexweather.models.WeatherData;
 import com.example.drcreeper.alexweather.utils.PicturePicker;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class WeekListRecyclerViewAdapter extends RecyclerView.Adapter<WeekListRecyclerViewAdapter.ViewHolder> {
-    public static final String WEEK_DAY_MASK = "u";
     public static final String DAY_MASK = "d, HH:mm";
     private List<WeatherData> mValues;
     private int showPosition = 0;
@@ -50,8 +51,10 @@ public class WeekListRecyclerViewAdapter extends RecyclerView.Adapter<WeekListRe
             //holder.mView.setBackgroundResource(R.color.weatherColor);
         }else {
             Date date = new Date(item.getTime());
-            SimpleDateFormat format = new SimpleDateFormat(WEEK_DAY_MASK);
-            int dayOfWeek = Integer.parseInt(format.format(date));
+            SimpleDateFormat format;
+            Calendar calendar = new GregorianCalendar();
+            calendar.setTime(date);
+            int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK); //Integer.parseInt(format.format(date));
             name.append(weekDays[dayOfWeek - 1]);
             name.append(" ");
             format = new SimpleDateFormat(DAY_MASK);

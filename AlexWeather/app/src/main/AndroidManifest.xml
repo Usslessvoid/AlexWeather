@@ -4,10 +4,10 @@
     android:installLocation="preferExternal">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-
-
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name=".utils.Utils"
@@ -29,7 +29,12 @@
             android:name=".activities.WeatherActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".activities.AddByName" />
-        <activity android:name=".activities.AddByCoord"></activity>
+        <activity android:name=".activities.AddByCoord" />
+
+        <service
+            android:name=".models.ChacheService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

@@ -15,9 +15,13 @@ import android.widget.ListView;
 
 import com.example.drcreeper.alexweather.R;
 import com.example.drcreeper.alexweather.activities.AddLocationActivity;
+import com.example.drcreeper.alexweather.models.ChacheService;
 import com.example.drcreeper.alexweather.models.LocationItem;
+import com.example.drcreeper.alexweather.utils.Callback;
 import com.example.drcreeper.alexweather.utils.ReadLocationsAsyncTask;
+import com.example.drcreeper.alexweather.utils.Utils;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +40,8 @@ public class LocationChooseFragment extends Fragment {
 
     List<LocationItem> list;
     WeatherAdapter adapter;
+    ReadLocationsAsyncTask readTask;
+    boolean needUpdate = true;
 
     @Nullable
     @Override
@@ -44,55 +50,41 @@ public class LocationChooseFragment extends Fragment {
         setHasOptionsMenu(true);
         ButterKnife.bind(this,view);
         list = new ArrayList<>();
-        ReadLocationsAsyncTask readTask = new ReadLocationsAsyncTask();
+        readTask = new ReadLocationsAsyncTask();
         readTask.setCallback(new com.example.drcreeper.alexweather.utils.Callback() {
             @Override
             public Object run(Object o) {
                 list.addAll((List<LocationItem>)o);
-                locationsList.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
                 return null;
             }
         });
-        readTask.execute();
-
-        /*Utils.getWeatherServise().getData(Utils.APPID, Utils.LOCALE,Utils.UNITS,625144).enqueue(new Callback<WeatherAnswer>() {
-            @Override
-            public void onResponse(retrofit2.Call<WeatherAnswer> call, Response<WeatherAnswer> response) {
-                if(response!= null){
-                    LocationItem locationItem = new LocationItem(response.body());
-                    list.add(locationItem);
-                    WriteLocationAsyncTask task = new WriteLocationAsyncTask();
-                    task.execute(locationItem);
-                    locationsList.setAdapter(adapter);
-
-                }else {
-                    onFailure(call,null);
-                }
-            }
-
-            @Override
-            public void onFailure(retrofit2.Call<WeatherAnswer> call, Throwable t) {
-                Toast.makeText(getContext(),"Error",Toast.LENGTH_LONG).show();
-            }
-        });*/
-
         adapter = new WeatherAdapter(getContext(),R.layout.location_item,list);
         locationsList.setEmptyView(v);
         locationsList.setAdapter(adapter);
-
+        needUpdate = false;
+        readTask.execute();
+        File file = new File(getContext().getCacheDir(), Utils.DUMP_FILE_NAME);
+        if(!file.exists()){
+            getContext().startService(new Intent(getContext(), ChacheService.class));
+        }
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        locationsList.deferNotifyDataSetChanged();
+        if(needUpdate){
+            update();
+        }
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.main_menu,menu);
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -110,8 +102,21 @@ public class LocationChooseFragment extends Fragment {
     public void refresh(){
 
     }
-
+    public void update(){
+        readTask = new ReadLocationsAsyncTask();
+        readTask.setCallback(new Callback() {
+            @Override
+            public Object run(Object o) {
+                list.clear();
+                list.addAll((List<LocationItem>)o);
+                adapter.notifyDataSetChanged();
+                return null;
+            }
+        });
+        readTask.execute();
+    }
     public void add(){
+        needUpdate = true;
         Intent addLocation = new Intent(getContext(), AddLocationActivity.class);
         getActivity().startActivity(addLocation);
     }

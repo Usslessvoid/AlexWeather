@@ -71,7 +71,7 @@ public class WeatherActivity extends AppCompatActivity {
     public void showWeather(WeatherData currentWeather){
         locationName.setText(getIntent().getStringExtra("name"));
         status.setText(currentWeather.getState());
-        temp.setText(String.format(Locale.ENGLISH,"%.1f",currentWeather.getTemperature()));
+        temp.setText(Utils.normalizeNumber(currentWeather.getTemperature()));
         tempMin.setText(String.format(Locale.ENGLISH,"%.1f",currentWeather.getMinTemperature()));
         tempMax.setText(String.format(Locale.ENGLISH,"%.1f",currentWeather.getMaxTemperature()));
         pressure.setText(String.format("%.0f",currentWeather.getPressure()));

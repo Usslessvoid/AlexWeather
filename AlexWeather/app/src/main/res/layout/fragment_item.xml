@@ -15,7 +15,7 @@
         android:layout_marginTop="8dp"
         android:text="100"
         android:textColor="@color/mainTextColor"
-        android:textSize="36sp"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/textView5"
         app:layout_constraintTop_toTopOf="parent" />
@@ -30,7 +30,7 @@
         android:layout_marginTop="8dp"
         android:text="TextView"
         android:textColor="@color/mainTextColor"
-        android:textSize="28sp"
+        android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -45,7 +45,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/unit_temp"
         android:textColor="@color/mainTextColor"
-        android:textSize="36sp"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/week_image"
         app:layout_constraintTop_toTopOf="parent" />

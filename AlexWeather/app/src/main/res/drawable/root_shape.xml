@@ -6,7 +6,7 @@
                 android:topLeftRadius = "30dp"
                 android:topRightRadius="30dp"
                 />
-            <solid android:color="#0032ff"/>
+            <solid android:color="@color/weatherColor"/>
         </shape>
     </item>
 </selector>
