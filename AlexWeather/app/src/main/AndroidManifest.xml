@@ -6,8 +6,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name=".utils.Utils"
@@ -34,7 +32,7 @@
         <service
             android:name=".models.ChacheService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true"/>
     </application>
 
 </manifest>

@@ -42,6 +42,7 @@ public class AddLocationFragment extends Fragment {
     @BindView(R.id.next)
     Button next;
     LocationManager locationManager;
+    LocationListener listener;
 
     @Nullable
     @Override
@@ -66,10 +67,11 @@ public class AddLocationFragment extends Fragment {
     public void onNextPress() {
         switch (choose.getCheckedRadioButtonId()) {
             case R.id.radio_position:
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 1, new LocationListener() {
+                listener = new LocationListener() {
                     @Override
                     public void onLocationChanged(Location location) {
                         if(location != null){
+
                             addByCoord(location.getLatitude(),location.getLongitude());
                         }
                     }
@@ -92,7 +94,8 @@ public class AddLocationFragment extends Fragment {
                     public void onProviderDisabled(String provider) {
 
                     }
-                });
+                };
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 0, listener);
                 break;
             case R.id.radio_name:
                 Intent toName = new Intent(getContext(), AddByName.class);
@@ -113,6 +116,7 @@ public class AddLocationFragment extends Fragment {
 
     }
     private void addByCoord(double lat, double lon){
+        locationManager.removeUpdates(listener);
         Utils.getWeatherServise().getDataByCoord(Utils.APPID,Utils.LOCALE,Utils.UNITS,lat,lon).enqueue(new Callback<WeatherAnswer>() {
             @Override
             public void onResponse(Call<WeatherAnswer> call, Response<WeatherAnswer> response) {
